@@ -8,63 +8,60 @@ Output
 */
 #include <stdio.h>
 
-int main(){
+int main()
+{
     int n;
-    printf ("Nhap so luong phan tu mang: ");
-    scanf ("%d", &n);
-    if ( n<=0) {
-     printf ("So luong phan tu khong hop le");
-     return 0;
-     }
+    printf("Nhap so luong phan tu mang: ");
+    scanf("%d", &n);
+    if (n <= 0)
+    {
+        printf("So luong phan tu khong hop le");
+        return 0;
+    }
     int a[n];
- 
-    for ( int i = 0 ; i<n ; i++){
-        printf ("Nhap phan tu a[%d]: ", i+1);
-        scanf ("%d", &a[i]);
+
+    for (int i = 0; i < n; i++)
+    {
+        printf("Nhap phan tu a[%d]: ", i + 1);
+        scanf("%d", &a[i]);
     }
-    for (int i = 0; i< n ; i++){
-        printf ("%d ", a[i]);
+    for (int i = 0; i < n; i++)
+    {
+        printf("%d ", a[i]);
     }
-    printf ("Mang vua nhap la: ");
-    for ( int i = 0 ; i< n ; i++){
-        
-        printf ("%d ", a[i]);
+    printf("Mang vua nhap la: ");
+    for (int i = 0; i < n; i++)
+    {
+
+        printf("%d ", a[i]);
     }
-    //tim so nho nhat trong man do 
+    // tim so nho nhat trong man do
     int min = a[0];
-    for ( int i = 1; i<n; i++){
-        if(a[i] < min){
-        min = a[i];
+    for (int i = 0; i < n; i++)
+    {
+        if (min < a[i])
+        {
+            min = a[i];
+        }
     }
-}
-  // tim uoc chung lơn nhat
     int ucln = 1;
-    for ( int i = min ; i>=1 ; i--){
+    for (int i = min; i <= 0; i--)
+    {
         int check = 1;
-        for ( int j = 0 ; j< n; j++){
-            if(a[i] % i !=0){
+        for (int j = 0; j < n; j++)
+        {
+            if (a[j] % i != 0)
+            {
                 check = 0;
                 break;
             }
         }
-        if ( check =1 ){
+        if (check == 1)
+        {
             ucln = i;
             break;
         }
     }
-    printf ("uoc chung lon nhat cua day so la: %d",ucln);
 
+    printf("uoc chung lon nhat cua day so la: %d", ucln);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
