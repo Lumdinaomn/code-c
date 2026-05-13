@@ -173,8 +173,9 @@ int main(){
         printf("%lld", fn);
     }
 }*/
-/*Bài 11: Viết chương trình đổi một số nguyên dương n nhập vào từ bàn phím sang
-dạng biểu diễn ở các cơ số: 2, 8, 16.*/
+/*Câu 19: Nhập vào số n, kiểm tra n có là số may mắn hay không?. n là số may mắn nếu tổng các
+chữ số của n chia hết cho 9. Ví dụ: số 12345 là số không may mắn vì 1+2+3+4+5 = 15, không chia
+hết cho 9. Số 12357 là số may mắn vì 1+2+3+5+7 = 18, chia hết cho 9.*/
 
 #include <stdio.h>
 
@@ -183,9 +184,22 @@ int main()
     int n;
     printf("Nhập n: ");
     scanf("%d", &n);
+    int temp = n;
     if (n < 0)
     {
-        printf("Vui lòng nhập lại số nguyên dương n!");
-        return 0;
+        n = -n;
+    }
+    int sum = 0;
+    for (; n > 0; n = n / 10)//n>0 là điều kiện để chạy khi nào không đúng thì ngừng vòng lặp
+    {
+        sum = sum + (n % 10);
+    }
+    if (sum % 9 == 0)
+    {
+        printf("%d là số may mắn", temp);
+    }
+    else
+    {
+        printf("%d không là số may mắn", temp);
     }
 }
