@@ -153,6 +153,7 @@
 // Bài 1: tìm kiếm
 // Bài 2: tìm kiếm ... lớn nhất nhỏ nhất
 // Bài 3: Sắp xếp
+// Bài 4: Tần xuất , tìm từ có tần xuất xuất hiện nhiều nhất
 
 // Bài toán tìm kiếm thông tin , thông qua mã sv
 #include <stdio.h>
@@ -213,8 +214,8 @@ void timkiem2(SV a[], int n) // HÀM TÌM SINH VIÊN CÓ ĐIỂM GPA CAO NHẤT
     in(a[vitri]);
 }
 
-void sx(SV a[], int n)
-{ // HÀM SẮP XẾP theo thứ tự giảm dần
+void sx(SV a[], int n) // HÀM SẮP XẾP theo thứ tự giảm dần
+{
     for (int i = 0; i < n; i++)
     {
         int max_idx = i;
@@ -230,6 +231,18 @@ void sx(SV a[], int n)
         a[max_idx] = tmp;
     }
 }
+
+// CÁCH 2: DÙNG QSORT ĐỂ SẮP XẾP PHẦN TỬ
+int cmp(const void *a, const void *b)
+{
+    SV *x = (SV *)a;
+    SV *y = (SV *)b;
+    if (x->gpa < y->gpa)
+        return -1;
+    else
+        return 1;
+}
+
 int main()
 {
     int n;
@@ -259,7 +272,7 @@ int main()
     fgets(s, sizeof(s), stdin);
 
     s[strcspn(s, "\n")] = '\0';
-
+    qsort(a, n, sizof(SV), cmp);
     timkiem1(a, n, s);
     timkiem2(a, n);
     sx(a, n);
