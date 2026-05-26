@@ -187,120 +187,220 @@ Số N được gọi là số DOUble-Neon Nếu N là số Neon và tổng các
 
 // bài toán số ngược
 // #include <stdio.h>
-
+//
 // int main()
-// {
-//     int n;
-
-//     printf("Nhap n: ");
-//     scanf("%d", &n);
-
-//     while (n < 10)
-//     {
-//         printf("Vui long nhap lai n: ");
-//         scanf("%d", &n);
-//     }
-
-//     int doicho = 0;
-//     int f = n;
-
-//     while (f > 0)
-//     {
-//         int socuoi = f % 10;
-
-//         doicho = doicho * 10 + socuoi;
-
-//         f = f / 10;
-//     }
-//     printf("%d", doicho);
-
-//     if (doicho == n)
-//     {
-//         printf("YES");
-//     }
-//     else
-//     {
-//         printf("NO");
-//     }
-
-//     return 0;
-// }
+//{
+//    int n;
+//
+//    printf("Nhap n: ");
+//    scanf("%d", &n);
+//
+//    while (n < 10)
+//    {
+//        printf("Vui long nhap lai n: ");
+//        scanf("%d", &n);
+//    }
+//
+//    int doicho = 0;
+//    int f = n;
+//
+//    while (f > 0)
+//    {
+//        int socuoi = f % 10;
+//
+//        doicho = doicho * 10 + socuoi;
+//
+//        f = f / 10;
+//    }
+//    printf("%d", doicho);
+//
+//    if (doicho == n)
+//    {
+//        printf("YES");
+//    }
+//    else
+//    {
+//        printf("NO");
+//    }
+//
+//    return 0;
+//}
 // #include <stdio.h>
 // #include <string.h>
-
+//
 // int main()
-// {
-//     char s[100];
+//{
+//    char s[100];
+//
+//    printf("Nhap so: ");
+//    scanf("%s", s);
+//
+//    int left = 0;
+//    int right = strlen(s) - 1;
+//
+//    int check = 1;
+//
+//    while (left < right)
+//    {
+//        if (s[left] != s[right])
+//        {
+//            check = 0;
+//            break;
+//        }
+//
+//        left++;
+//        right--;
+//    }
+//
+//    if (check == 1)
+//    {
+//        printf("YES");
+//    }
+//    else
+//    {
+//        printf("NO");
+//    }
+//
+//    return 0;
+//}
 
-//     printf("Nhap so: ");
-//     scanf("%s", s);
+/*Đề số 07 – Câu 3 (5 điểm)
 
-//     int left = 0;
-//     int right = strlen(s) - 1;
+Viết chương trình quản lý kho hàng sử dụng mảng cấu trúc (struct).
 
-//     int check = 1;
+Mỗi mặt hàng gồm:
 
-//     while (left < right)
-//     {
-//         if (s[left] != s[right])
-//         {
-//             check = 0;
-//             break;
-//         }
+Mã (int)
+Tên (string[50])
+Số lượng (int)
+Giá (float)
 
-//         left++;
-//         right--;
-//     }
+Thực hiện:
 
-//     if (check == 1)
-//     {
-//         printf("YES");
-//     }
-//     else
-//     {
-//         printf("NO");
-//     }
+a. Nhập danh sách N mặt hàng.
 
-//     return 0;
-// }
+b. In danh sách hàng có số lượng dưới mức tối thiểu (nhập min từ bàn phím).
+
+c. Sắp xếp danh sách theo giá tăng dần.
+
+d. Ghi danh sách đã sắp xếp vào file "kho.txt".*/
 
 #include <stdio.h>
-#include <math.h>
-int hi(int n)
-{
-    int su = 0, x;
-    while (n > 0)
-    {
-        su = pow(n % 10, 3) + su;
-        n = n / 10;
-    }
-    return su;
-}
-int ha(int n)
-{
-    int su = 1, x;
-    while (n > 0)
-    {
-        su = su * (n % 10);
-        n = n / 10;
-    }
+#include <string.h>
 
-    return su;
+typedef struct mathang
+{
+    int ma;
+    char ten[99];
+    int sl;
+    float gia;
+} mh;
+
+void nhap(mh *x)
+{
+    printf("\nNhap ma hang: ");
+    scanf("%d", &x->ma);
+    getchar();
+    printf("Nhap ten hang: ");
+    fgets(x->ten, sizeof(x->ten), stdin);
+    x->ten[strcspn(x->ten, "\n")] = '\0';
+    printf("Nhap so luong: ");
+    scanf("%d", &x->sl);
+    printf("Nhap gia: ");
+    scanf("%f", &x->gia);
 }
+void in(mh x)
+{
+
+    printf("\n%-10d %-20s %-10d %-10.2f",
+           x.ma,
+           x.ten,
+           x.sl,
+           x.gia);
+}
+void inmintoithieu(mh a[], int n, int min)
+{
+
+    int i;
+    for (i = 0; i < n; i++)
+    {
+
+        if (a[i].sl < min)
+        {
+            in(a[i]);
+        }
+    }
+}
+
+void sx(mh a[], int n)
+{
+
+    int i, j;
+    for (i = 0; i < n - 1; i++)
+    {
+        int min = i;
+        for (j = i + 1; j < n; j++)
+        {
+            if (a[j].gia < a[min].gia)
+            {
+                min = j;
+            }
+        }
+        mh temp = a[i];
+        a[i] = a[min];
+        a[min] = temp;
+    }
+}
+
+void ghifile(mh a[], int n)
+{
+    FILE *f;
+    f = fopen("kho.txt", "w");
+    if (f == NULL)
+    {
+        printf("\nLoi mo file");
+    }
+    int i;
+    for (i = 0; i < n; i++)
+    {
+        fprintf(f, "%d %s %d %.2f",
+                a[i].ma,
+                a[i].ten,
+                a[i].sl,
+                a[i].gia);
+    }
+    fclose(f);
+}
+
 int main()
 {
     int n;
-    printf("so can kiem tra la:");
+    printf("Nhap so luong mat hang: ");
     scanf("%d", &n);
-    printf("%d", hi(n));
-    int x = ha(n);
-    printf("\n%d", hi(x));
-    if (x > 0 && (hi(x) == x))
+    mh a[n];
+    int i;
+    for (i = 0; i < n; i++)
     {
-        printf("\nN la so LUCKY");
+        printf("\nNhap mat hang thu %d", i + 1);
+        nhap(&a[i]);
     }
-    else
+    printf("\nDanh sach mat hang: ");
+    for (i = 0; i < n; i++)
     {
-        printf("\nN khong la so LUCKY");
+        in(a[i]);
     }
+    int min;
+    printf("\nNhap muc toi thieu: ");
+    scanf("%d", &min);
+    printf("\nHang duoi muc toi thieu: ");
+    inmintoithieu(a, n, min);
+    sx(a, n);
+    printf("\nDanh sach sau sap xep la: ");
+    for (i = 0; i < n; i++)
+    {
+        in(a[i]);
+    }
+    ghifile(a, n);
+    return 0;
 }
+
