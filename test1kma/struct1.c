@@ -156,126 +156,179 @@
 // Bài 4: Tần xuất , tìm từ có tần xuất xuất hiện nhiều nhất
 
 // Bài toán tìm kiếm thông tin , thông qua mã sv
+// #include <stdio.h>
+// #include <string.h>
+
+// struct SV
+// {
+//     char ma[50];
+//     char ten[100];
+//     float gpa;
+// };
+
+// typedef struct SV SV;
+
+// void nhap(SV *a)
+// {
+//     scanf("%s", a->ma);
+
+//     getchar();
+
+//     fgets(a->ten, sizeof(a->ten), stdin);
+
+//     a->ten[strcspn(a->ten, "\n")] = '\0';
+
+//     scanf("%f", &a->gpa);
+// }
+
+// void in(SV a)
+// {
+//     printf("%s %s %.2f\n", a.ma, a.ten, a.gpa);
+// }
+
+// void timkiem1(SV a[], int n, char m[]) // HAM TÌM KIẾM SINH VIÊN THEO MÃ GPA
+// {
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (strcmp(m, a[i].ma) == 0) //CÚ pháp tìm kiếm giống nhau
+//         {
+//             in(a[i]);
+//             return;
+//         }
+//     }
+
+//     printf("Khong tim thay sinh vien\n");
+// }
+// void timkiem2(SV a[], int n) // HÀM TÌM SINH VIÊN CÓ ĐIỂM GPA CAO NHẤT
+// {
+//     float res = 0;
+//     int vitri =0;
+//     for (int i = 0; i < n; i++)
+//     {
+//         if (a[i].gpa > res)
+//         {
+//             res = a[i].gpa;
+//             vitri = i;
+//         }
+//     }
+//     in(a[vitri]);
+// }
+
+// void sx(SV a[], int n) // HÀM SẮP XẾP theo thứ tự giảm dần
+// {
+//     for (int i = 0; i < n; i++)
+//     {
+//         int max_idx = i;
+//         for (int j = i + 1; j < n; j++)
+//         {
+//             if (a[j].gpa > a[max_idx].gpa)
+//             {
+//                 max_idx = j;
+//             }
+//         }
+//         SV tmp = a[i];
+//         a[i] = a[max_idx];
+//         a[max_idx] = tmp;
+//     }
+// }
+
+// // CÁCH 2: DÙNG QSORT ĐỂ SẮP XẾP PHẦN TỬ
+// int cmp(const void *a, const void *b)
+// {
+//     SV *x = (SV *)a;
+//     SV *y = (SV *)b;
+//     if (x->gpa < y->gpa)
+//         return -1;
+//     else
+//         return 1;
+// }
+
+// int main()
+// {
+//     int n;
+
+//     scanf("%d", &n);
+
+//     SV a[n];
+
+//     for (int i = 0; i < n; i++)
+//     {
+//         nhap(&a[i]);
+//     }
+
+//     printf("\nDanh sach sinh vien:\n");
+
+//     for (int i = 0; i < n; i++)
+//     {
+//         in(a[i]);
+//     }
+
+//     char s[100];
+
+//     getchar();
+
+//     printf("Nhap ma sv can tim: ");
+
+//     fgets(s, sizeof(s), stdin);
+
+//     s[strcspn(s, "\n")] = '\0';
+//     qsort(a, n, sizof(SV), cmp);
+//     timkiem1(a, n, s);
+//     timkiem2(a, n);
+//     sx(a, n);
+
+//     return 0;
+// }
+
 #include <stdio.h>
 #include <string.h>
-
+typedef struct SV SV;
 struct SV
 {
-    char ma[50];
-    char ten[100];
+    char ma[1000];
+    char ten[1000];
     float gpa;
 };
-
-typedef struct SV SV;
-
 void nhap(SV *a)
 {
+
     scanf("%s", a->ma);
-
     getchar();
-
     fgets(a->ten, sizeof(a->ten), stdin);
-
     a->ten[strcspn(a->ten, "\n")] = '\0';
-
     scanf("%f", &a->gpa);
 }
-
 void in(SV a)
 {
-    printf("%s %s %.2f\n", a.ma, a.ten, a.gpa);
+    printf("%s %s %.2f", a.ma, a.ten, a.gpa);
 }
 
-void timkiem1(SV a[], int n, char m[]) // HAM TÌM KIẾM SINH VIÊN THEO MÃ GPA
-{
+void timkiem1(SV a[], int n, char m[100])
+{   
     for (int i = 0; i < n; i++)
     {
         if (strcmp(m, a[i].ma) == 0)
+
         {
-            in(a[i]);
+            in(a[i]);     
             return;
         }
     }
-
-    printf("Khong tim thay sinh vien\n");
-}
-void timkiem2(SV a[], int n) // HÀM TÌM SINH VIÊN CÓ ĐIỂM GPA CAO NHẤT
-{
-    float res = 0;
-    int vitri;
-    for (int i = 0; i < n; i++)
-    {
-        if (a[i].gpa > res)
-        {
-            res = a[i].gpa;
-            vitri = i;
-        }
-    }
-    in(a[vitri]);
-}
-
-void sx(SV a[], int n) // HÀM SẮP XẾP theo thứ tự giảm dần
-{
-    for (int i = 0; i < n; i++)
-    {
-        int max_idx = i;
-        for (int j = i + 1; j < n; j++)
-        {
-            if (a[j].gpa > a[max_idx].gpa)
-            {
-                max_idx = j;
-            }
-        }
-        SV tmp = a[i];
-        a[i] = a[max_idx];
-        a[max_idx] = tmp;
-    }
-}
-
-// CÁCH 2: DÙNG QSORT ĐỂ SẮP XẾP PHẦN TỬ
-int cmp(const void *a, const void *b)
-{
-    SV *x = (SV *)a;
-    SV *y = (SV *)b;
-    if (x->gpa < y->gpa)
-        return -1;
-    else
-        return 1;
+    printf("Khong tim thay sinh vien co ma vua nhap !\n");
 }
 
 int main()
 {
+
     int n;
-
     scanf("%d", &n);
-
     SV a[n];
-
     for (int i = 0; i < n; i++)
-    {
         nhap(&a[i]);
-    }
-
-    printf("\nDanh sach sinh vien:\n");
-
     for (int i = 0; i < n; i++)
-    {
         in(a[i]);
-    }
-
     char s[100];
-
-    getchar();
-
-    printf("Nhap ma sv can tim: ");
-
-    fgets(s, sizeof(s), stdin);
-
-    s[strcspn(s, "\n")] = '\0';
-    qsort(a, n, sizof(SV), cmp);
+    printf("\nNhap ma sinh vien can tim kiem: ");
+    scanf("%s", s);
     timkiem1(a, n, s);
-    timkiem2(a, n);
-    sx(a, n);
-
-    return 0;
 }

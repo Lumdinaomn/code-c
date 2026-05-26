@@ -186,80 +186,121 @@ Số N được gọi là số DOUble-Neon Nếu N là số Neon và tổng các
 // }
 
 // bài toán số ngược
-#include <stdio.h>
+// #include <stdio.h>
 
+// int main()
+// {
+//     int n;
+
+//     printf("Nhap n: ");
+//     scanf("%d", &n);
+
+//     while (n < 10)
+//     {
+//         printf("Vui long nhap lai n: ");
+//         scanf("%d", &n);
+//     }
+
+//     int doicho = 0;
+//     int f = n;
+
+//     while (f > 0)
+//     {
+//         int socuoi = f % 10;
+
+//         doicho = doicho * 10 + socuoi;
+
+//         f = f / 10;
+//     }
+//     printf("%d", doicho);
+
+//     if (doicho == n)
+//     {
+//         printf("YES");
+//     }
+//     else
+//     {
+//         printf("NO");
+//     }
+
+//     return 0;
+// }
+// #include <stdio.h>
+// #include <string.h>
+
+// int main()
+// {
+//     char s[100];
+
+//     printf("Nhap so: ");
+//     scanf("%s", s);
+
+//     int left = 0;
+//     int right = strlen(s) - 1;
+
+//     int check = 1;
+
+//     while (left < right)
+//     {
+//         if (s[left] != s[right])
+//         {
+//             check = 0;
+//             break;
+//         }
+
+//         left++;
+//         right--;
+//     }
+
+//     if (check == 1)
+//     {
+//         printf("YES");
+//     }
+//     else
+//     {
+//         printf("NO");
+//     }
+
+//     return 0;
+// }
+
+#include <stdio.h>
+#include <math.h>
+int hi(int n)
+{
+    int su = 0, x;
+    while (n > 0)
+    {
+        su = pow(n % 10, 3) + su;
+        n = n / 10;
+    }
+    return su;
+}
+int ha(int n)
+{
+    int su = 1, x;
+    while (n > 0)
+    {
+        su = su * (n % 10);
+        n = n / 10;
+    }
+
+    return su;
+}
 int main()
 {
     int n;
-
-    printf("Nhap n: ");
+    printf("so can kiem tra la:");
     scanf("%d", &n);
-
-    while (n < 10)
+    printf("%d", hi(n));
+    int x = ha(n);
+    printf("\n%d", hi(x));
+    if (x > 0 && (hi(x) == x))
     {
-        printf("Vui long nhap lai n: ");
-        scanf("%d", &n);
-    }
-
-    int doicho = 0;
-    int f = n;
-
-    while (f > 0)
-    {
-        int socuoi = f % 10;
-
-        doicho = doicho * 10 + socuoi;
-
-        f = f / 10;
-    }
-    printf("%d", doicho);
-
-    if (doicho == n)
-    {
-        printf("YES");
+        printf("\nN la so LUCKY");
     }
     else
     {
-        printf("NO");
+        printf("\nN khong la so LUCKY");
     }
-
-    return 0;
-}
-#include <stdio.h>
-#include <string.h>
-
-int main()
-{
-    char s[100];
-
-    printf("Nhap so: ");
-    scanf("%s", s);
-
-    int left = 0;
-    int right = strlen(s) - 1;
-
-    int check = 1;
-
-    while (left < right)
-    {
-        if (s[left] != s[right])
-        {
-            check = 0;
-            break;
-        }
-
-        left++;
-        right--;
-    }
-
-    if (check == 1)
-    {
-        printf("YES");
-    }
-    else
-    {
-        printf("NO");
-    }
-
-    return 0;
 }
