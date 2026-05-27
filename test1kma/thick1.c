@@ -404,3 +404,155 @@ int main()
     return 0;
 }
 
+/*Đề số 02 – Câu 3 (5 điểm)
+
+Viết chương trình sử dụng file để quản lý danh sách sản phẩm.
+Mỗi sản phẩm gồm:
+
+Mã SP (int)
+Tên SP (string)
+Đơn giá (float)
+Số lượng (int)
+
+Thực hiện:
+
+a. Ghi danh sách N sản phẩm vào file "sanpham.dat".
+
+b. Đọc file và in ra danh sách các sản phẩm.
+
+c. Tính tổng giá trị hàng tồn kho (đơn giá × số lượng) và in ra màn hình.
+
+d. Tìm và in ra sản phẩm có giá trị tồn kho cao nhất.*/
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct sanpham
+{
+    int ma;
+    char ten[100];
+    float gia;
+    int sl;
+} sp;
+
+void nhap(sp *x)
+{
+    printf("\nNhap ma san pham: ");
+    scanf("%d", &x->ma);
+
+    getchar();
+
+    printf("Nhap ten san pham: ");
+    fgets(x->ten, sizeof(x->ten), stdin);
+    x->ten[strcspn(x->ten, "\n")] = '\0';
+
+    printf("Nhap gia san pham: ");
+    scanf("%f", &x->gia);
+
+    printf("Nhap so luong san pham: ");
+    scanf("%d", &x->sl);
+}
+
+void in(sp x)
+{
+    printf("\n%-10d %-20s %-15.2f %-10d",
+           x.ma,
+           x.ten,
+           x.gia,
+           x.sl);
+}
+
+void ghifile(sp a[], int n)
+{
+    FILE *f;
+
+    f = fopen("sanpham.dat", "wb");
+
+    if (f == NULL)
+    {
+        printf("\nLoi mo file!");
+        return;
+    }
+
+    fwrite(a, sizeof(sp), n, f);
+
+    fclose(f);
+}
+
+void docfile()
+{
+    FILE *f;
+
+    f = fopen("sanpham.dat", "rb");
+
+    if (f == NULL)
+    {
+        printf("\nLoi mo file!");
+        return;
+    }
+
+    sp x;
+
+    float tong = 0;
+
+    float max = 0;
+
+    sp maxsp;
+
+    printf("\n\nDANH SACH SAN PHAM");
+    printf("\n%-10s %-20s %-15s %-10s",
+           "Ma",
+           "Ten",
+           "Don gia",
+           "So luong");
+
+    while (fread(&x, sizeof(sp), 1, f) == 1)
+    {
+        in(x);
+
+        float giatri = x.gia * x.sl;
+
+        tong = tong + giatri;
+
+        if (giatri > max)
+        {
+            max = giatri;
+            maxsp = x;
+        }
+    }
+
+    printf("\n\nTong gia tri ton kho: %.2f", tong);
+
+    printf("\n\nSan pham co gia tri ton kho cao nhat:");
+    in(maxsp);
+
+    printf("\nGia tri ton kho: %.2f", max);
+
+    fclose(f);
+}
+
+int main()
+{
+    int n;
+
+    printf("Nhap so luong san pham: ");
+    scanf("%d", &n);
+
+    sp a[n];
+
+    int i;
+
+    for (i = 0; i < n; i++)
+    {
+        printf("\nNhap san pham thu %d", i + 1);
+
+        nhap(&a[i]);
+    }
+
+    ghifile(a, n);
+
+    docfile();
+
+    return 0;
+}
