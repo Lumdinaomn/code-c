@@ -475,7 +475,7 @@ void ghifile(sp a[], int n)
         return;
     }
 
-    fwrite(a, sizeof(sp), n, f);
+    fwrite(a, sizeof(sp), n, f); // a: địa chỉ biến , sp: kích thước kiểu dữ liệu , n: số lượng biến ghi , f : con trỏ tới file
 
     fclose(f);
 }
@@ -556,3 +556,7 @@ int main()
 
     return 0;
 }
+
+
+
+

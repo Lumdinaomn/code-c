@@ -7,24 +7,24 @@ int main() {
 
     int tong = a + b;
     printf ("tong al: %d" , tong );
-    return 0;5 
+    return 0;5
 }*/
 #include <stdio.h>
 
-int main() {
-    int a,b;
-    
+int main()
+{
+    int a, b;
+
     printf("Nhap a: ");
-    scanf ("%d",&a);
+    scanf("%d", &a);
     printf("Nhap b: ");
-    scanf ("%d",&b);
-    if(a>b){
+    scanf("%d", &b);
+    if (a > b)
+    {
         printf("A lon hon b");
-        
-    }else {
+    }
+    else
+    {
         printf("A be hon b");
     }
 }
-
-
-
